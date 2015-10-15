@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (c) 2014 Serv. Tecnol. Avanzados (http://www.serviciosbaeza.com)
+#    Copyright (C) 2015 Serv. Tecnol. Avanz. (<http://www.serviciosbaeza.com>)
 #                       Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -13,24 +12,19 @@
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
+#    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-{
-    "name": "Project task works printing",
-    "version": "8.0.1.0.1",
-    "author": "Serv. Tecnol. Avanzados - Pedro M. Baeza",
-    "category": "Generic Modules/Projects & Services",
-    "website": "http://www.serviciosbaeza.com",
-    "license": 'AGPL-3',
-    "depends": [
-        "project",
-    ],
-    "data": [
-        "report/report.xml",
-    ],
-    'installable': True
-}
+
+
+def migrate(cr, version):
+    if not version:
+        return
+    # Ensure an unique sequence value
+    cr.execute("""
+        UPDATE account_periodical_invoicing_agreement_line
+        SET sequence = id
+        """)
